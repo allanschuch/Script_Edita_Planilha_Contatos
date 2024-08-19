@@ -9,7 +9,10 @@ def adicionar_prefixo(row, prefixo):
     if pd.isna(row['Distrito']) or pd.isna(row['First Name']):
         return row['First Name'] if pd.notna(row['First Name']) else np.nan
     else:
-        distrito_str = str(int(row['Distrito'])) if pd.notna(row['Distrito']) else ''
+        if isinstance(row['Distrito'], float):
+            distrito_str = str(int(row['Distrito'])) if pd.notna(row['Distrito']) else ''
+        elif isinstance(row['Distrito'], str):
+            distrito_str = row['Distrito']
         return prefixo + '_Dist_' + distrito_str + '_' + row['First Name']
 
 def main(caminho_planilha, prefixo):
